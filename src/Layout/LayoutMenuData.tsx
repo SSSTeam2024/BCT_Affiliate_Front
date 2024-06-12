@@ -125,13 +125,13 @@ const Navdata = () => {
           parentId: "pushed-job",
           icon: "ph ph-prohibit",
         },
-        // {
-        //   id: "refusedJob",
-        //   label: "Refused Jobs",
-        //   link: "/refused-jobs",
-        //   parentId: "newJob",
-        //   icon: "ph ph-x",
-        // },
+        {
+          id: "refusedJob",
+          label: "Refused Jobs",
+          link: "/refused-jobs",
+          parentId: "newJob",
+          icon: "ph ph-x",
+        },
       ],
     },
     {

@@ -233,7 +233,6 @@ const Login = (props: any) => {
                                 const user: any = await login(
                                   formState
                                 ).unwrap();
-                                console.log(user);
                                 if (user) {
                                   dispatch(setCredentials(user));
                                   // localStorage.setItem(

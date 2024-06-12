@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import {
   Container,
   Row,
@@ -17,33 +17,62 @@ import {
   useGetAllQuoteQuery,
   useSendPriceandNotesMutation,
 } from "features/quotes/quotesSlice";
-
 import Swal from "sweetalert2";
-
 import { selectCurrentUser } from "../../features/affiliate/authAffiliateSlice";
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store"; // Import your RootState interface
-
 import CheckProgress from "pages/CheckProgress";
-import { useGetAllSuggestedQuotesByAffiliateIDQuery } from "features/affiliate/affiliateSlice";
+import { useAddNewRejectedJobMutation } from "features/RejectedJobs/rejectedJobsSlice";
+
 const SuggestedJobs = () => {
   document.title = "Suggested Jobs | Affiliate Administration";
-  const [modal_AssignDriver, setModal_AssignDriver] = useState<boolean>(false);
-  const [modal_AssignVehicle, setModal_AssignVehicle] =
-    useState<boolean>(false);
-
   const user = useSelector((state: RootState) => selectCurrentUser(state));
+  const { data: AllQuotes = [] } = useGetAllQuoteQuery();
+  // const result: any[] = [];
 
-  const { data: AllQuotes = [] } = useGetAllSuggestedQuotesByAffiliateIDQuery(
-    user?._id!
-  );
+  // for (let quote of AllQuotes) {
+  //   if (Array.isArray(quote.white_list)) {
+  //     for (let aff of quote.white_list) {
+  //       if (aff?.id?._id! === user?._id) {
+  //         if (
+  //           aff.jobStatus !== "Refused" &&
+  //           (quote.progress === "New" || quote.progress === "Booked")
+  //         ) {
+  //           result.push(quote);
+  //           break;
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
 
-  const privateHiredJobs = AllQuotes.filter(
+  const result: any[] = useMemo(() => {
+    const filteredQuotes = [];
+    for (let quote of AllQuotes) {
+      if (Array.isArray(quote.white_list)) {
+        for (let aff of quote.white_list) {
+          if (aff?.id?._id === user?._id) {
+            if (
+              aff.jobStatus !== "Refused" &&
+              (quote.progress === "New" || quote.progress === "Booked")
+            ) {
+              filteredQuotes.push(quote);
+              break;
+            }
+          }
+        }
+      }
+    }
+    return filteredQuotes;
+  }, [AllQuotes, user]);
+
+  const privateHiredJobs = result.filter(
     (privateHired) => privateHired?.category === "Private"
   );
-  const contractJobs = AllQuotes.filter(
+  const contractJobs = result.filter(
     (contract) => contract?.category === "Regular"
   );
+
   const [isChecked, setIsChecked] = useState<boolean>(false);
   const [selectedRow, setSelectedRow] = useState<any>(null);
   const [modal_AcceptJob, setmodal_modal_AcceptJob] = useState<boolean>(false);
@@ -86,6 +115,7 @@ const SuggestedJobs = () => {
   };
 
   const [sendPriceMutation] = useSendPriceandNotesMutation();
+  const [AddNewRejectedJob] = useAddNewRejectedJobMutation();
 
   const initialSendPrice = {
     idQuote: "",
@@ -153,33 +183,38 @@ const SuggestedJobs = () => {
     setIdQuote(selectedRow?._id!);
   };
 
-  const onSubmitSendPrice = (
+  const onSubmitSendPrice = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
     try {
       sendPrice["idQuote"] = id_Quote;
       sendPrice["white_list"] = updatedWhiteList;
-      sendPriceMutation(sendPrice)
-        .then(() => handleModalClose)
-        .then(() => navigate("/suggested-jobs"))
-        .then(() => notifySuccess());
+      await sendPriceMutation(sendPrice);
+      notifySuccess();
+      setmodal_modal_AcceptJob(false);
+      navigate("/suggested-jobs");
+      setIsChecked(false);
     } catch (error) {
       notifyError(error);
     }
   };
 
-  const onSubmitRefuseQuote = (
+  const onSubmitRefuseQuote = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
     try {
       sendPrice["idQuote"] = id_Quote;
       sendPrice["white_list"] = updatedRefuseWhiteList;
-      sendPriceMutation(sendPrice)
-        .then(() => handleModalClose)
-        .then(() => navigate("/suggested-jobs"))
-        .then(() => notifySuccess());
+      await sendPriceMutation(sendPrice);
+      await AddNewRejectedJob({
+        affiliate: user?._id!,
+        job_id: id_Quote,
+      });
+      notifySuccess();
+      setmodal_modal_AcceptJob(false);
+      navigate("/refused-jobs");
     } catch (error) {
       notifyError(error);
     }
@@ -191,12 +226,12 @@ const SuggestedJobs = () => {
       selector: (cell: Quote) => {
         return (
           <span>
-            <span className="text-dark">{cell?._id}</span>
+            <span className="text-dark">{cell?.quote_ref!}</span>
           </span>
         );
       },
       sortable: true,
-      width: "220px",
+      width: "160px",
     },
     {
       name: (
@@ -412,6 +447,163 @@ const SuggestedJobs = () => {
     setIsContractChecked(event.target.checked);
   };
 
+  const [selectedFilter, setSelectedFilter] = useState("all");
+
+  const handleFilterChange = (event: any) => {
+    setSelectedFilter(event.target.value);
+  };
+
+  const [selectedProgress, setSelectedProgress] = useState("all");
+
+  const handleFilterProgressChange = (event: any) => {
+    setSelectedProgress(event.target.value);
+  };
+
+  const filterResults = (results: any, filter: any) => {
+    const today = new Date();
+    const filterDate = new Date(today);
+
+    switch (filter) {
+      case "Today":
+        return results.filter(
+          (quote: any) =>
+            new Date(quote.date).toDateString() === today.toDateString()
+        );
+
+      case "Yesterday":
+        filterDate.setDate(today.getDate() - 1);
+        return results.filter(
+          (quote: any) =>
+            new Date(quote.date).toDateString() === filterDate.toDateString()
+        );
+
+      case "Last 7 Days":
+        filterDate.setDate(today.getDate() - 7);
+        return results.filter(
+          (quote: any) => new Date(quote.date) >= filterDate
+        );
+
+      case "Last 30 Days":
+        filterDate.setDate(today.getDate() - 30);
+        return results.filter(
+          (quote: any) => new Date(quote.date) >= filterDate
+        );
+
+      case "This Month":
+        return results.filter((quote: any) => {
+          const quoteDate = new Date(quote.date);
+          return (
+            quoteDate.getFullYear() === today.getFullYear() &&
+            quoteDate.getMonth() === today.getMonth()
+          );
+        });
+
+      case "Last Month":
+        filterDate.setMonth(today.getMonth() - 1);
+        return results.filter((quote: any) => {
+          const quoteDate = new Date(quote.date);
+          return (
+            quoteDate.getFullYear() === filterDate.getFullYear() &&
+            quoteDate.getMonth() === filterDate.getMonth()
+          );
+        });
+
+      default:
+        return results;
+    }
+  };
+
+  const filteredResults = filterResults(result, selectedFilter);
+
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [filteredSearchResults, setFilteredSearchResults] =
+    useState<any[]>(result);
+
+  useEffect(() => {
+    setFilteredSearchResults(
+      result.filter((row) => {
+        return (
+          row.quote_ref?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          (
+            row.id_affiliate_driver?.firstname +
+            " " +
+            row.id_affiliate_driver?.surname
+          )
+            ?.toLowerCase()
+            .includes(searchQuery.toLowerCase()) ||
+          row.vehicle_type?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          row.id_affiliate_vehicle?.registration_number
+            ?.toLowerCase()
+            .includes(searchQuery.toLowerCase()) ||
+          row.date?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          row.passengers_number?.toString().includes(searchQuery) ||
+          row.start_point?.placeName
+            ?.toLowerCase()
+            .includes(searchQuery.toLowerCase()) ||
+          row.destination_point?.placeName
+            ?.toLowerCase()
+            .includes(searchQuery.toLowerCase()) ||
+          row.progress?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          row.status?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          row.pushed_price?.toString().includes(searchQuery) ||
+          row.id_visitor?.name
+            ?.toLowerCase()
+            .includes(searchQuery.toLowerCase()) ||
+          row.school_id?.name
+            ?.toLowerCase()
+            .includes(searchQuery.toLowerCase()) ||
+          row.company_id?.name
+            ?.toLowerCase()
+            .includes(searchQuery.toLowerCase()) ||
+          row.id_visitor?.phone
+            ?.toLowerCase()
+            .includes(searchQuery.toLowerCase()) ||
+          row.school_id?.phone
+            ?.toLowerCase()
+            .includes(searchQuery.toLowerCase()) ||
+          row.company_id?.phone
+            ?.toLowerCase()
+            .includes(searchQuery.toLowerCase()) ||
+          row.id_visitor?.email
+            ?.toLowerCase()
+            .includes(searchQuery.toLowerCase()) ||
+          row.school_id?.email
+            ?.toLowerCase()
+            .includes(searchQuery.toLowerCase()) ||
+          row.company_id?.email
+            ?.toLowerCase()
+            .includes(searchQuery.toLowerCase()) ||
+          row.dropoff_date?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          row.dropoff_time?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          row.createdAt?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          row.notes?.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+      })
+    );
+  }, [searchQuery, result]);
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const newJobs = result.filter((newJob) => newJob?.progress === "New");
+  const bookedJobs = result.filter(
+    (bookedJob) => bookedJob?.progress === "Booked"
+  );
+  const [selectedDates, setSelectedDates] = useState<any[]>([]);
+
+  const handleDateChange = (dates: any) => {
+    setSelectedDates(dates);
+  };
+
+  const filterDate = () => {
+    const startDate = selectedDates[0]?.toISOString()!.split("T")[0];
+
+    return result.filter((item) => item.date == startDate);
+  };
+
+  const filteredDate = filterDate();
+
   return (
     <React.Fragment>
       {user.progress !== "100" ? (
@@ -419,7 +611,7 @@ const SuggestedJobs = () => {
       ) : (
         <div className="page-content">
           <Container fluid>
-            <Breadcrumb title="New Jobs" pageTitle="Jobs" />
+            <Breadcrumb title="Suggested Jobs" pageTitle="Jobs" />
             <Col lg={12}>
               <Card>
                 <Card.Body>
@@ -431,6 +623,8 @@ const SuggestedJobs = () => {
                         data-choices-search-false
                         name="choices-single-default"
                         id="idStatus"
+                        onChange={handleFilterChange}
+                        value={selectedFilter}
                       >
                         <option value="all">All</option>
                         <option value="Today">Today</option>
@@ -446,51 +640,14 @@ const SuggestedJobs = () => {
                         className="form-select text-muted"
                         data-choices
                         data-choices-search-false
-                        name="choices-single-default"
-                        id="idStatus"
-                      >
-                        <option value="all">All Payment</option>
-                        <option value="Today">Not paid</option>
-                        <option value="Yesterday">Part paid</option>
-                        <option value="Last 7 Days">Paid</option>
-                        <option value="Last 30 Days">Pay Cash</option>
-                      </select>
-                    </Col>
-                    <Col sm={9} className="col-lg-auto">
-                      <select
-                        className="form-select text-muted"
-                        data-choices
-                        data-choices-search-false
-                        name="choices-single-default"
-                        id="idStatus"
+                        name="choices-progress"
+                        id="idProgress"
+                        onChange={handleFilterProgressChange}
+                        value={selectedProgress}
                       >
                         <option value="all">All Progress</option>
-                        <option value="Today">Accepted</option>
-                        <option value="Yesterday">Allocated</option>
-                        <option value="Last 7 Days">Confirmed</option>
-                        <option value="Last 30 Days">Ended</option>
-                        <option value="Today">In Progress</option>
-                        <option value="Yesterday">Internal Job</option>
-                        <option value="Last 7 Days">New</option>
-                        <option value="Today">On route</option>
-                        <option value="Yesterday">On site</option>
-                        <option value="Last 7 Days">Under bid</option>
-                      </select>
-                    </Col>
-                    <Col sm={9} className="col-lg-auto">
-                      <select
-                        className="form-select text-muted"
-                        data-choices
-                        data-choices-search-false
-                        name="choices-single-default"
-                        id="idStatus"
-                      >
-                        <option value="all">All Priority</option>
-                        <option value="Today">1</option>
-                        <option value="Yesterday">2</option>
-                        <option value="Last 7 Days">3</option>
-                        <option value="Last 30 Days">4</option>
-                        <option value="Today">5</option>
+                        <option value="Booked">Booked</option>
+                        <option value="New">New</option>
                       </select>
                     </Col>
                     <Col lg={2}>
@@ -498,9 +655,9 @@ const SuggestedJobs = () => {
                         className="form-control flatpickr-input"
                         placeholder="Select Date"
                         options={{
-                          mode: "range",
                           dateFormat: "d M, Y",
                         }}
+                        onChange={handleDateChange}
                       />
                     </Col>
                     <Col className="d-flex align-items-center">
@@ -536,7 +693,7 @@ const SuggestedJobs = () => {
                           Contract
                         </label>
                       </div>
-                      <div className="form-check form-check-inline">
+                      {/* <div className="form-check form-check-inline">
                         <input
                           className="form-check-input"
                           type="checkbox"
@@ -549,7 +706,7 @@ const SuggestedJobs = () => {
                         >
                           Non Invoiced
                         </label>
-                      </div>
+                      </div> */}
                     </Col>
                   </Row>
                 </Card.Body>
@@ -564,25 +721,10 @@ const SuggestedJobs = () => {
                           type="text"
                           className="form-control search"
                           placeholder="Search for something..."
+                          value={searchQuery}
+                          onChange={handleSearchChange}
                         />
                         <i className="ri-search-line search-icon"></i>
-                      </div>
-                    </Col>
-                    <Col lg={2} className="d-flex justify-content-end">
-                      <div
-                        className="btn-group btn-group-sm mt-2"
-                        role="group"
-                        aria-label="Basic example"
-                      >
-                        <button type="button" className="btn btn-outline-dark">
-                          Excel
-                        </button>
-                        <button type="button" className="btn btn-outline-dark">
-                          PDF
-                        </button>
-                        <button type="button" className="btn btn-outline-dark">
-                          Print
-                        </button>
                       </div>
                     </Col>
                   </Row>
@@ -607,12 +749,31 @@ const SuggestedJobs = () => {
                   ) : (
                     <DataTable
                       columns={columns}
-                      data={AllQuotes}
+                      data={filteredSearchResults}
+                      // data={filteredDate}
                       pagination
                       selectableRows
                       onSelectedRowsChange={handleChange}
                     />
                   )}
+                  {/* {selectedProgress === "New" && (
+                    <DataTable
+                      columns={columns}
+                      data={newJobs}
+                      pagination
+                      selectableRows
+                      onSelectedRowsChange={handleChange}
+                    />
+                  )}
+                  {selectedProgress === "Booked" && (
+                    <DataTable
+                      columns={columns}
+                      data={bookedJobs}
+                      pagination
+                      selectableRows
+                      onSelectedRowsChange={handleChange}
+                    />
+                  )} */}
                 </Card.Body>
               </Card>
             </Col>
@@ -625,16 +786,55 @@ const SuggestedJobs = () => {
             >
               <Modal.Header className="px-4 pt-4" closeButton>
                 {selectedRow && (
-                  <h5 className="modal-title fs-18" id="exampleModalLabel">
-                    Here are the details of the quote with Go Date{" "}
-                    {selectedRow?.date!} at {selectedRow?.pickup_time!} .Your
-                    pick-up address is {selectedRow?.start_point?.placeName!},
-                    and your destination address is{" "}
-                    {selectedRow?.destination_point?.placeName!}. The estimated
-                    arrival date for your shipment is{" "}
-                    {selectedRow?.dropoff_date!} at {selectedRow?.dropoff_time!}
-                    .
-                  </h5>
+                  <>
+                    <Row>
+                      <Col lg={4}>
+                        <h5
+                          className="modal-title fs-18"
+                          id="exampleModalLabel"
+                        >
+                          Here are the details of this Job:
+                        </h5>
+                      </Col>
+                      <Col lg={4}>
+                        <div className="mb-1">
+                          <span className="fw-medium">Go Date : </span>{" "}
+                          <span className="text-muted">
+                            {selectedRow?.date!}
+                          </span>{" "}
+                          <strong>at </strong>
+                          <span className="text-muted">
+                            {selectedRow?.pickup_time!}
+                          </span>
+                        </div>
+                        <div>
+                          <span className="fw-medium">Pickup Address: </span>
+                          <span className="text-muted">
+                            {selectedRow?.start_point?.placeName!}
+                          </span>
+                        </div>
+                      </Col>
+                      <Col lg={4}>
+                        <div className="mb-1">
+                          <span className="fw-medium">
+                            Destination Address :{" "}
+                          </span>
+                          <span className="text-muted">
+                            {selectedRow?.destination_point?.placeName!}
+                          </span>
+                        </div>
+                        <span className="fw-medium">Arrival Date : </span>
+                        <span className="text-muted">
+                          {selectedRow?.dropoff_date!}
+                        </span>{" "}
+                        <strong>at </strong>
+                        <span className="text-muted">
+                          {selectedRow?.dropoff_time!}
+                        </span>
+                        .
+                      </Col>
+                    </Row>
+                  </>
                 )}
               </Modal.Header>
               <Modal.Body className="p-4">

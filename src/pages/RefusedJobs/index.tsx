@@ -11,45 +11,30 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../app/store"; // Import your RootState interface
 
 import CheckProgress from "pages/CheckProgress";
+import { useGetAllRejectedJobsQuery } from "features/RejectedJobs/rejectedJobsSlice";
 const RefusedJobs = () => {
   document.title = "Refused Jobs | Affiliate Administration";
-  const [modal_AssignDriver, setModal_AssignDriver] = useState<boolean>(false);
-  const [modal_AssignVehicle, setModal_AssignVehicle] =
-    useState<boolean>(false);
-
-  const { data: AllQuotes = [] } = useGetAllQuoteQuery();
 
   const user = useSelector((state: RootState) => selectCurrentUser(state));
+  const { data: AllQuotes = [] } = useGetAllRejectedJobsQuery(user?._id!);
+  console.log("AllQuotes", AllQuotes);
+  // let result: any[] = [];
+  // AllQuotes.map((quote) => result.push(quote.job_id));
 
-  const result: any[] = [];
-
-  for (let quote of AllQuotes) {
-    // Check if white_list exists and is iterable
-    if (Array.isArray(quote.white_list)) {
-      for (let aff of quote.white_list) {
-        console.log(aff);
-        if (aff?.id?._id! === user?._id! && aff?.jobStatus! === "Refused") {
-          result.push(quote);
-          break; // No need to continue checking the rest of white_list
-        }
-      }
-    }
-  }
-
-  const privateHiredJobs = result.filter(
-    (privateHired) => privateHired?.category === "Private"
-  );
-  const contractJobs = result.filter(
-    (contract) => contract?.category === "Regular"
-  );
+  // // const privateHiredJobs = result.filter(
+  // //   (privateHired: any) => privateHired?.category === "Private"
+  // // );
+  // // const contractJobs = result.filter(
+  // //   (contract: any) => contract?.category === "Regular"
+  // // );
 
   const columns = [
     {
       name: <span className="font-weight-bold fs-13">Quote ID</span>,
-      selector: (cell: Quote) => {
+      selector: (cell: any) => {
         return (
           <span>
-            <span className="text-dark">{cell?._id}</span>
+            <span className="text-dark">{cell?._id!}</span>
           </span>
         );
       },
@@ -430,12 +415,7 @@ const RefusedJobs = () => {
                   </Row>
                 </Card.Header>
                 <Card.Body>
-                  <DataTable
-                    columns={columns}
-                    data={result}
-                    pagination
-                    selectableRows
-                  />
+                  <DataTable columns={columns} data={AllQuotes} pagination />
                 </Card.Body>
               </Card>
             </Col>

@@ -20,6 +20,7 @@ import authAffiliateSlice from "features/affiliate/authAffiliateSlice";
 import { driverSlice } from "features/driver/driverSlice";
 import { vehicleSlice } from "features/vehicles/vehicleSlice";
 import { extraSlice } from "features/VehicleExtraLuxury/extraSlice";
+import { rejectedJobsSlice } from "features/RejectedJobs/rejectedJobsSlice";
 
 
 export const store = configureStore({
@@ -39,6 +40,7 @@ export const store = configureStore({
     [driverSlice.reducerPath]: driverSlice.reducer,
     [vehicleSlice.reducerPath]: vehicleSlice.reducer,
     [extraSlice.reducerPath]: extraSlice.reducer,
+    [rejectedJobsSlice.reducerPath]: rejectedJobsSlice.reducer,
     auth: authSlice,
     authAffiliate: authAffiliateSlice,
     Layout: LayoutReducer,
@@ -63,6 +65,7 @@ export const store = configureStore({
       driverSlice.middleware,
       vehicleSlice.middleware,
       extraSlice.middleware,
+      rejectedJobsSlice.middleware
     ]);
   },
 });

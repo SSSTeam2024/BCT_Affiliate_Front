@@ -65,7 +65,7 @@ export interface Quote {
   pushed_price: string;
   noteAcceptJob: string;
   priceJob?: string;
-
+  quote_ref?:string
 }
 
 export interface BookEmail {
@@ -193,6 +193,13 @@ export const quoteSlice = createApi({
         }),
         providesTags: ["Quote"],
       }),
+      getAllSuggestedQuotesByAffiliateID: builder.query<Quote[], string | void>({
+        query: (_id) => ({
+          url: `/getAllSuggestedQuotesByAffiliateID/${_id}`,
+          method: "GET",
+        }),
+        providesTags: ["Quote"],
+      }),
       addSendBookEmail: builder.mutation<void, BookEmail>({
         query({
           id_visitor,
@@ -286,7 +293,6 @@ export const quoteSlice = createApi({
         },
         providesTags: ["Quote"],
       }),
-
       addAffiliateDriverToQuote: builder.mutation<
         void,
         AssignAffiliateDriverToQuote
@@ -463,5 +469,6 @@ export const {
   useUpdateProgressQuoteAffiliateMutation,
   useSendPriceandNotesMutation,
   useSendAcceptJobStatusMutation,
-  useSendRefuseJobStatusMutation
+  useSendRefuseJobStatusMutation,
+  useGetAllSuggestedQuotesByAffiliateIDQuery
 } = quoteSlice;

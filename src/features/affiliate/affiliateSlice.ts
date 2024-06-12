@@ -208,12 +208,7 @@ export const affiliateSlice = createApi({
         }),
         // providesTags: ["Driver"],
       }),
-      getAllSuggestedQuotesByAffiliateID: builder.query<any[], string | void>({
-        query: (_id) => ({
-          url: `/getAllSuggestedQuotesByAffiliateID/${_id}`,
-          method: "GET",
-        }),
-      }),
+
     };
   },
 
@@ -223,5 +218,4 @@ export const {
   useLoginMutation,
   useUpdateAffiliateMutation,
   useGetAllQuotesByAffiliateIDQuery,
-  useGetAllSuggestedQuotesByAffiliateIDQuery
 } = affiliateSlice;

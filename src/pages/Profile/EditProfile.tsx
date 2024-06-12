@@ -10,7 +10,6 @@ import {
   Row,
 } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import avatar1 from "assets/images/users/avatar-1.jpg";
 import img4 from "assets/images/small/img-4.jpg";
 import { selectCurrentUser } from "../../features/affiliate/authAffiliateSlice";
 import { useSelector } from "react-redux";
@@ -151,7 +150,7 @@ const EditProfile = () => {
   }, [mergedVehicles]);
 
   const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: "AIzaSyBbORSZJBXcqDnY6BbMx_JSP0l_9HLQSkw",
+    googleMapsApiKey: process?.env?.REACT_APP_MAPS_KEY!,
     libraries: ["places"],
   });
 

@@ -29,12 +29,8 @@ import ExtraTrip from "pages/ExtraTrip";
 import ListExtraTrip from "pages/ExtraTrip/ListExtraTrip";
 import AddNewStation from "pages/Promgramming/Stations/AddNewStation";
 
-import ReportError from "pages/Help/RepportError";
-import RequestFeature from "pages/Help/RequestFeature";
-import UserManual from "pages/Help/UserManuel";
 import ProgramRoutes from "pages/ProgramRoutes";
 import Profile from "pages/Profile";
-import Settings from "pages/Settings";
 
 import ProgramClone from "pages/ProgramRoutes/ProgramClone";
 import ProgramDetails from "pages/ProgramRoutes/ProgramDetails";
@@ -66,13 +62,6 @@ const authProtectedRoutes = [
   // ? extra trips
   { path: "/list-extra-trips", component: <ListExtraTrip /> },
 
-  // report error
-  { path: "/report-error", component: <ReportError /> },
-  // request feature
-  { path: "/request-feature", component: <RequestFeature /> },
-  // user manual
-  { path: "/user-manual", component: <UserManual /> },
-
   //? Programming
   { path: "/trips-management", component: <TripsManagement /> },
   { path: "/scheduling", component: <Programming /> },
@@ -83,9 +72,6 @@ const authProtectedRoutes = [
 
   // View Profile student
   { path: "/student/view-profile", component: <Profile /> },
-
-  //settings
-  { path: "/settings", component: <Settings /> },
 
   //? Add station
   { path: "/stations/add-station", component: <AddNewStation /> },

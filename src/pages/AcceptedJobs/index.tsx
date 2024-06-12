@@ -232,12 +232,12 @@ const AcceptedJobs = () => {
       selector: (cell: Quote) => {
         return (
           <span>
-            <span className="text-dark">{cell?._id}</span>
+            <span className="text-dark">{cell?.quote_ref!}</span>
           </span>
         );
       },
       sortable: true,
-      width: "220px",
+      width: "160px",
     },
     {
       name: (
@@ -718,21 +718,6 @@ const AcceptedJobs = () => {
                         name="choices-single-default"
                         id="idStatus"
                       >
-                        <option value="all">All Payment</option>
-                        <option value="Today">Not paid</option>
-                        <option value="Yesterday">Part paid</option>
-                        <option value="Last 7 Days">Paid</option>
-                        <option value="Last 30 Days">Pay Cash</option>
-                      </select>
-                    </Col>
-                    <Col sm={9} className="col-lg-auto">
-                      <select
-                        className="form-select text-muted"
-                        data-choices
-                        data-choices-search-false
-                        name="choices-single-default"
-                        id="idStatus"
-                      >
                         <option value="all">All Progress</option>
                         <option value="Today">Accepted</option>
                         <option value="Yesterday">Allocated</option>
@@ -743,23 +728,6 @@ const AcceptedJobs = () => {
                         <option value="Last 7 Days">New</option>
                         <option value="Today">On route</option>
                         <option value="Yesterday">On site</option>
-                        <option value="Last 7 Days">Under bid</option>
-                      </select>
-                    </Col>
-                    <Col sm={9} className="col-lg-auto">
-                      <select
-                        className="form-select text-muted"
-                        data-choices
-                        data-choices-search-false
-                        name="choices-single-default"
-                        id="idStatus"
-                      >
-                        <option value="all">All Priority</option>
-                        <option value="Today">1</option>
-                        <option value="Yesterday">2</option>
-                        <option value="Last 7 Days">3</option>
-                        <option value="Last 30 Days">4</option>
-                        <option value="Today">5</option>
                       </select>
                     </Col>
                     <Col lg={2}>
@@ -803,20 +771,6 @@ const AcceptedJobs = () => {
                           htmlFor="inlineCheckbox2"
                         >
                           Contract
-                        </label>
-                      </div>
-                      <div className="form-check form-check-inline">
-                        <input
-                          className="form-check-input"
-                          type="checkbox"
-                          id="inlineCheckbox3"
-                          value="option3"
-                        />
-                        <label
-                          className="form-check-label"
-                          htmlFor="inlineCheckbox3"
-                        >
-                          Non Invoiced
                         </label>
                       </div>
                     </Col>
@@ -864,23 +818,6 @@ const AcceptedJobs = () => {
                           placeholder="Search for something..."
                         />
                         <i className="ri-search-line search-icon"></i>
-                      </div>
-                    </Col>
-                    <Col lg={2} className="d-flex justify-content-end">
-                      <div
-                        className="btn-group btn-group-sm mt-2"
-                        role="group"
-                        aria-label="Basic example"
-                      >
-                        <button type="button" className="btn btn-outline-dark">
-                          Excel
-                        </button>
-                        <button type="button" className="btn btn-outline-dark">
-                          PDF
-                        </button>
-                        <button type="button" className="btn btn-outline-dark">
-                          Print
-                        </button>
                       </div>
                     </Col>
                   </Row>
@@ -1085,7 +1022,10 @@ const AcceptedJobs = () => {
               centered
             >
               <Modal.Body className="p-4">
-                <ModalAssignVehicle assigned={modal_AssignVehicle} />
+                <ModalAssignVehicle
+                  assigned={modal_AssignVehicle}
+                  setModal_AssignVehicle={setModal_AssignVehicle}
+                />
               </Modal.Body>
             </Modal>
             {/* Modal To Cancel Job */}

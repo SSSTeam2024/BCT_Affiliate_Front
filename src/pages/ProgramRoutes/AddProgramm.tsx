@@ -156,15 +156,13 @@ const AddProgramm = (props: any) => {
   const [test2, setTest2] = useState("");
 
   const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: "AIzaSyBbORSZJBXcqDnY6BbMx_JSP0l_9HLQSkw",
+    googleMapsApiKey: process?.env?.REACT_APP_MAPS_KEY!,
     libraries: ["places"],
   });
 
   const [stops, setStops] = useState<google.maps.LatLng[]>([]);
 
   const [waypts, setWaypts] = useState<google.maps.DirectionsWaypoint[]>([]);
-
-
 
   const [stopTimes, setStopTimes] = useState<stopTime[]>([]);
 
@@ -775,8 +773,8 @@ const AddProgramm = (props: any) => {
       programmData["freeDays_date"] = freeDates;
       programmData["journeyType"] = selectedJourney;
       programmData["luggage"] = selectedLuggage;
-      programmData['vehiculeType'] = selectedVehicleType;
-      programmData['clientID'] = user?._id! ;
+      programmData["vehiculeType"] = selectedVehicleType;
+      programmData["clientID"] = user?._id!;
 
       const dropYear = dropOff_date!.getFullYear();
       const dropMonth = dropOff_date!.getMonth() + 1;

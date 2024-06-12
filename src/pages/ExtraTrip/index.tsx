@@ -61,7 +61,7 @@ const ExtraTrip = (props: any) => {
   const [selectedDestination, setSelectedDestination] = useState(null);
   const autocompleteRef = useRef<HTMLInputElement>(null);
   const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: "AIzaSyBbORSZJBXcqDnY6BbMx_JSP0l_9HLQSkw",
+    googleMapsApiKey: process?.env?.REACT_APP_MAPS_KEY!,
     libraries: ["places"],
   });
 
@@ -354,8 +354,10 @@ const ExtraTrip = (props: any) => {
                       />
                     </Autocomplete>
                     <InputGroup.Text>to</InputGroup.Text>
-                    <Autocomplete onPlaceChanged={onPlaceChangedDest}
-                      onLoad={onLoadDest}>
+                    <Autocomplete
+                      onPlaceChanged={onPlaceChangedDest}
+                      onLoad={onLoadDest}
+                    >
                       <Form.Control
                         type="text"
                         placeholder="Destination"
