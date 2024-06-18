@@ -267,7 +267,7 @@ const UserProfile = () => {
                     <Col lg={3}>
                       <div className="profile-user-img position-relative">
                         <img
-                          src={`${process.env.REACT_APP_BASE_URL}/schoolFiles/${user.id_file}`}
+                          src={`${process.env.REACT_APP_FILE_URL}/schoolFiles/${user.id_file}`}
                           alt=""
                           className="rounded object-fit-cover"
                         />

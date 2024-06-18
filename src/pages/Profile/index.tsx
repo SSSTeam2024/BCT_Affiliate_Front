@@ -64,7 +64,7 @@ const Profile = () => {
                       <div className="mt-n5">
                         <Image
                           src={`${
-                            process.env.REACT_APP_BASE_URL
+                            process.env.REACT_APP_FILE_URL
                           }/affiliateFiles/avatarFilesPath/${user?.avatar!}`}
                           alt=""
                           className="avatar-lg rounded-circle p-1 bg-body mt-n3"
@@ -256,7 +256,7 @@ const Profile = () => {
             ></div>
             <div>
               <Document
-                file={`${process.env.REACT_APP_BASE_URL}/affiliateFiles/licenceFiles/${user.id_file}`}
+                file={`${process.env.REACT_APP_FILE_URL}/affiliateFiles/licenceFiles/${user.id_file}`}
                 onLoadSuccess={onDocumentLoadSuccess}
               >
                 <Page pageNumber={1} />
@@ -285,7 +285,7 @@ const Profile = () => {
             ></div>
             <div>
               <Document
-                file={`${process.env.REACT_APP_BASE_URL}/affiliateFiles/insuranceFiles/${user.insurance_file}`}
+                file={`${process.env.REACT_APP_FILE_URL}/affiliateFiles/insuranceFiles/${user.insurance_file}`}
                 onLoadSuccess={onDocumentLoadSuccess}
               >
                 <Page pageNumber={1} />

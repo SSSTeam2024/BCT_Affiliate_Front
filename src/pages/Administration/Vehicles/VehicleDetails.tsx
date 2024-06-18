@@ -81,7 +81,7 @@ const VehicleDetails = () => {
                 <Col lg={12} className="mt-4">
                   <div className="bg-white rounded-4 position-relative ribbon-box overflow-hidden">
                     <img
-                      src={`${process.env.REACT_APP_BASE_URL}/VehicleAffiliateFiles/vehicleImages/${LocationVehicle.state.vehicle_images}`}
+                      src={`${process.env.REACT_APP_FILE_URL}/VehicleAffiliateFiles/vehicleImages/${LocationVehicle.state.vehicle_images}`}
                       // src={productsImg31}
                       alt=""
                       className="img-fluid rounded-4"
@@ -343,7 +343,7 @@ const VehicleDetails = () => {
             ></div>
             <div>
               <Document
-                file={`${process.env.REACT_APP_BASE_URL}/VehicleAffiliateFiles/insuranceFiles/${LocationVehicle.state.insurance_file}`}
+                file={`${process.env.REACT_APP_FILE_URL}/VehicleAffiliateFiles/insuranceFiles/${LocationVehicle.state.insurance_file}`}
                 onLoadSuccess={onDocumentLoadSuccess}
               >
                 <Page pageNumber={1} />
@@ -372,7 +372,7 @@ const VehicleDetails = () => {
             ></div>
             <div>
               <Document
-                file={`${process.env.REACT_APP_BASE_URL}/VehicleAffiliateFiles/motFiles/${LocationVehicle.state.mot_file}`}
+                file={`${process.env.REACT_APP_FILE_URL}/VehicleAffiliateFiles/motFiles/${LocationVehicle.state.mot_file}`}
                 onLoadSuccess={onDocumentLoadSuccess}
               >
                 <Page pageNumber={1} />
@@ -401,7 +401,7 @@ const VehicleDetails = () => {
             ></div>
             <div>
               <Document
-                file={`${process.env.REACT_APP_BASE_URL}/VehicleAffiliateFiles/taxFiles/${LocationVehicle.state.tax_file}`}
+                file={`${process.env.REACT_APP_FILE_URL}/VehicleAffiliateFiles/taxFiles/${LocationVehicle.state.tax_file}`}
                 onLoadSuccess={onDocumentLoadSuccess}
               >
                 <Page pageNumber={1} />

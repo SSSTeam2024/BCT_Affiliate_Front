@@ -134,7 +134,7 @@ const DriverTable = ({ driver }: any) => {
                 <div className="d-flex mb-4 align-items-center">
                   <div className="flex-shrink-0">
                     <Image
-                      src={`${process.env.REACT_APP_BASE_URL}/driverAffiliateFiles/profileImages/${item.profile_image}`}
+                      src={`${process.env.REACT_APP_FILE_URL}/driverAffiliateFiles/profileImages/${item.profile_image}`}
                       alt={item.firstname}
                       className="avatar-lg rounded-circle"
                       id="profile_image"

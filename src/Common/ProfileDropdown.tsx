@@ -16,7 +16,7 @@ const ProfileDropdown = () => {
   const logout = () => {
     axios
       .post(
-        `${process.env.REACT_APP_BASE_URL}/api/affiliate/logout/${user._id}`,
+        `${process.env.REACT_APP_FILE_URL}/api/affiliate/logout/${user._id}`,
         {}
       )
       .then((res: any) => {
@@ -38,7 +38,7 @@ const ProfileDropdown = () => {
             <img
               className="rounded-circle header-profile-user"
               src={`${
-                process.env.REACT_APP_BASE_URL
+                process.env.REACT_APP_FILE_URL
               }/affiliateFiles/avatarFilesPath/${user?.avatar!}`}
               alt="Header Avatar"
             />

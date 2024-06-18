@@ -76,7 +76,7 @@ const DriverDetails = () => {
                     style={{ width: "400px" }}
                   >
                     <img
-                      src={`${process.env.REACT_APP_BASE_URL}/driverAffiliateFiles/profileImages/${driverLocation.state.profile_image}`}
+                      src={`${process.env.REACT_APP_FILE_URL}/driverAffiliateFiles/profileImages/${driverLocation.state.profile_image}`}
                       alt=""
                       className="rounded cover"
                     />
@@ -343,7 +343,7 @@ const DriverDetails = () => {
             ></div>
             <div>
               <Document
-                file={`${process.env.REACT_APP_BASE_URL}/driverAffiliateFiles/licenseFiles/${driverLocation.state.driver_license}`}
+                file={`${process.env.REACT_APP_FILE_URL}/driverAffiliateFiles/licenseFiles/${driverLocation.state.driver_license}`}
                 onLoadSuccess={onDocumentLoadSuccess}
               >
                 <Page pageNumber={1} />
@@ -372,7 +372,7 @@ const DriverDetails = () => {
             ></div>
             <div>
               <Document
-                file={`${process.env.REACT_APP_BASE_URL}/driverAffiliateFiles/dqcFiles/${driverLocation.state.dqc}`}
+                file={`${process.env.REACT_APP_FILE_URL}/driverAffiliateFiles/dqcFiles/${driverLocation.state.dqc}`}
                 onLoadSuccess={onDocumentLoadSuccess}
               >
                 <Page pageNumber={1} />
@@ -401,7 +401,7 @@ const DriverDetails = () => {
             ></div>
             <div>
               <Document
-                file={`${process.env.REACT_APP_BASE_URL}/driverAffiliateFiles/dbsCheckFiles/${driverLocation.state.dbscheck}`}
+                file={`${process.env.REACT_APP_FILE_URL}/driverAffiliateFiles/dbsCheckFiles/${driverLocation.state.dbscheck}`}
                 onLoadSuccess={onDocumentLoadSuccess}
               >
                 <Page pageNumber={1} />
@@ -430,7 +430,7 @@ const DriverDetails = () => {
             ></div>
             <div>
               <Document
-                file={`${process.env.REACT_APP_BASE_URL}/driverAffiliateFiles/contractFiles/${driverLocation.state.contract}`}
+                file={`${process.env.REACT_APP_FILE_URL}/driverAffiliateFiles/contractFiles/${driverLocation.state.contract}`}
                 onLoadSuccess={onDocumentLoadSuccess}
               >
                 <Page pageNumber={1} />

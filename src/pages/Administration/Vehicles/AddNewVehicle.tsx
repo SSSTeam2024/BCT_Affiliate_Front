@@ -615,7 +615,7 @@ const AddNewVehicle = () => {
                                             <div className="avatar-lg">
                                               <div className="avatar-title bg-light rounded-3">
                                                 <Link
-                                                  to={`${process.env.REACT_APP_BASE_URL}/vehicleImages/${vehicle.vehicle_images}`}
+                                                  to={`${process.env.REACT_APP_FILE_URL}/vehicleImages/${vehicle.vehicle_images}`}
                                                 >
                                                   <img
                                                     src={`data:image/jpeg;base64, ${vehicle.vehicle_images_base64_string}`}
