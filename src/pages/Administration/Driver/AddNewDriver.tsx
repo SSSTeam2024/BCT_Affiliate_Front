@@ -1069,7 +1069,7 @@ const AddNewDriver = () => {
                                   />
                                 </div>
                               </Col>
-                              <Col lg={3}>
+                              {/* <Col lg={3}>
                                 <div className="mb-3">
                                   <Form.Label htmlFor="username">
                                     Username
@@ -1083,8 +1083,8 @@ const AddNewDriver = () => {
                                     value={driver.username}
                                   />
                                 </div>
-                              </Col>
-                              <Col lg={3}>
+                              </Col> */}
+                              {/* <Col lg={3}>
                                 <div className="mb-3">
                                   <Form.Label htmlFor="password">
                                     Password
@@ -1098,7 +1098,7 @@ const AddNewDriver = () => {
                                     value={driver.password}
                                   />
                                 </div>
-                              </Col>
+                              </Col> */}
                             </Row>
                           </Card.Body>
                         </Col>

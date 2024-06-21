@@ -32,6 +32,7 @@ import { RootState } from "../../app/store";
 import ModalAssignVehicle from "./ModalAssignVehicle";
 import CheckProgress from "pages/CheckProgress";
 import { useGetAllQuotesByAffiliateIDQuery } from "features/affiliate/affiliateSlice";
+
 const AcceptedJobs = () => {
   document.title = "Accepted Jobs | Affiliate Administration";
   const [modal_AssignDriver, setModal_AssignDriver] = useState<boolean>(false);
@@ -52,7 +53,7 @@ const AcceptedJobs = () => {
       quote.progress === "On Site" ||
       quote.progress === "Picked Up"
   );
-
+  console.log(acceptedJobs);
   const privateHiredJobs = acceptedJobs.filter(
     (privateHired) => privateHired?.category === "Private"
   );
@@ -80,7 +81,7 @@ const AcceptedJobs = () => {
   };
   const locationQuote = useLocation();
   const navigate = useNavigate();
-  const { data: AllDrivers = [] } = useGetAllDriverQuery();
+  const { data: AllDrivers = [] } = useGetAllDriverQuery(user?._id!);
   let filterdDrivers = AllDrivers.filter(
     (driver) => driver.driverStatus === "Active"
   );
@@ -675,12 +676,13 @@ const AcceptedJobs = () => {
   const activeDrivers = AllDrivers.filter(
     (drivers) => drivers.driverStatus === "Active"
   );
+  console.log("AllDrivers", AllDrivers);
 
-  const { data: AllVehicles = [] } = useGetAllVehiclesQuery();
+  const { data: AllVehicles = [] } = useGetAllVehiclesQuery(user?._id!);
   const activeVehicles = AllVehicles.filter(
     (vehicles) => vehicles.statusVehicle === "Active"
   );
-
+  console.log("activeVehicles", activeVehicles);
   return (
     <React.Fragment>
       {user.progress !== "100" ? (

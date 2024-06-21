@@ -8,6 +8,10 @@ import {
 } from "features/vehicles/vehicleSlice";
 import Swal from "sweetalert2";
 import { useAddAffiliateVehicleToQuoteMutation } from "features/quotes/quotesSlice";
+import { selectCurrentUser } from "../../features/affiliate/authAffiliateSlice";
+import { useSelector } from "react-redux";
+import { RootState } from "../../app/store";
+
 interface VehicleProps {
   assigned: boolean;
   setModal_AssignVehicle: React.Dispatch<React.SetStateAction<boolean>>;
@@ -16,9 +20,11 @@ const ModalAssignVehicle: React.FC<VehicleProps> = ({
   assigned,
   setModal_AssignVehicle,
 }) => {
+  const user = useSelector((state: RootState) => selectCurrentUser(state));
+
   const locationQuote = useLocation();
   const navigate = useNavigate();
-  const { data: AllVehicles = [] } = useGetAllVehiclesQuery();
+  const { data: AllVehicles = [] } = useGetAllVehiclesQuery(user?._id!);
   let filterdVehicles = AllVehicles.filter(
     (vehicle) => vehicle.statusVehicle === "Active"
   );
