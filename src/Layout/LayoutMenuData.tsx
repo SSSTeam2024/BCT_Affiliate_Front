@@ -156,14 +156,14 @@ const Navdata = () => {
       subItems: [
         {
           id: "Driver",
-          label: "Driver",
+          label: "Drivers",
           icon: "ph ph-identification-badge",
           link: "/drivers",
           parentId: "Driver",
         },
         {
           id: "Vehicle",
-          label: "Vehicle",
+          label: "Vehicles",
           link: "/vehicles",
           parentId: "Vehicle",
           icon: "ph ph-jeep",

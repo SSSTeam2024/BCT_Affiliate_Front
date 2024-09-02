@@ -324,7 +324,7 @@ const AddNewVehicle = () => {
     ownership: "",
     owner_name: "",
     note: "",
-    extra: [""],
+    extra: "",
     vehicle_images_base64_string: "",
     vehicle_images_extension: "",
     vehicle_images: "",
@@ -523,7 +523,6 @@ const AddNewVehicle = () => {
       vehicle["speed_limit"] = selectedSpeedLimit;
       vehicle["insurance_type"] = selectInsuranceType;
       vehicle["ownership"] = selectOwnership;
-      vehicle["extra"] = selectedValues;
       vehicle["create_by"] = user?._id!;
       createVehicle(vehicle)
         .then(() => setVehicle(initialVehicle))
@@ -878,31 +877,6 @@ const AddNewVehicle = () => {
                                           />
                                         </div>
                                       </Col>
-                                      {/* Depot_name  == Done */}
-                                      <Col lg={6}>
-                                        <div className="mb-3">
-                                          <Form.Label htmlFor="depot_name">
-                                            Depot name
-                                          </Form.Label>
-                                          <select
-                                            className="form-select text-muted"
-                                            name="depot_name"
-                                            id="depot_name"
-                                            onChange={handleSelectDepotName}
-                                          >
-                                            <option value="">
-                                              Select Depot
-                                            </option>
-                                            <option
-                                              value="Brimingham, West Midlands B35
-                                              7BT, UK"
-                                            >
-                                              Brimingham, West Midlands B35 7BT,
-                                              UK
-                                            </option>
-                                          </select>
-                                        </div>
-                                      </Col>
                                     </Row>
                                     <Row>
                                       {/* Purchase_date  == Done */}
@@ -1171,47 +1145,6 @@ const AddNewVehicle = () => {
                                           </select>
                                         </div>
                                       </Col>
-                                      {/* Owner  == Done */}
-                                      {selectOwnership &&
-                                      selectOwnership === "Owned" ? (
-                                        <Col lg={6}>
-                                          <div className="mb-3">
-                                            <label
-                                              htmlFor="owner_name"
-                                              className="form-label"
-                                            >
-                                              Owner Name
-                                            </label>
-                                            <Form.Control
-                                              type="text"
-                                              id="owner_name"
-                                              name="owner_name"
-                                              // onChange={onChangeVehicle}
-                                              value="Bouden Travel Ltd"
-                                              // placeholder="Enter owner name"
-                                            />{" "}
-                                          </div>
-                                        </Col>
-                                      ) : (
-                                        <Col lg={6}>
-                                          <div className="mb-3">
-                                            <label
-                                              htmlFor="owner_name"
-                                              className="form-label"
-                                            >
-                                              Owner Name
-                                            </label>
-                                            <Form.Control
-                                              type="text"
-                                              id="owner_name"
-                                              name="owner_name"
-                                              onChange={onChangeVehicle}
-                                              value={vehicle.owner_name}
-                                              // placeholder="Enter owner name"
-                                            />
-                                          </div>
-                                        </Col>
-                                      )}
                                     </Row>
                                     <Row>
                                       {/* Note  == Done */}
@@ -1237,42 +1170,20 @@ const AddNewVehicle = () => {
                                       {/* Extra  == Done */}
                                       <Col lg={3}>
                                         <div className="mb-3">
-                                          <Form.Label htmlFor="name">
+                                          <Form.Label htmlFor="extra">
                                             Extra
                                           </Form.Label>
                                         </div>
                                       </Col>
                                       <Col lg={9}>
-                                        <div className="input-group gap-2 mb-3">
-                                          <select
-                                            multiple
-                                            size={5}
-                                            onChange={handleSelectChange}
-                                            className="select"
-                                          >
-                                            {AllExtraOptions.map(
-                                              (extras: any) => (
-                                                <option
-                                                  value={`${extras.name}`}
-                                                >
-                                                  {extras.name}
-                                                </option>
-                                              )
-                                            )}
-                                          </select>
-                                          <button
-                                            className="btn btn-darken-success"
-                                            type="button"
-                                            id="extra-addon2"
-                                            onClick={() => tog_AddExtra()}
-                                            style={{
-                                              height: "38px",
-                                              borderRadius: "4px",
-                                            }}
-                                          >
-                                            <span className="mdi mdi-plus"></span>
-                                          </button>
-                                        </div>
+                                        <Form.Control
+                                          type="text"
+                                          id="extra"
+                                          name="extra"
+                                          onChange={onChangeVehicle}
+                                          value={vehicle.extra}
+                                          // placeholder="Enter owner name"
+                                        />
                                       </Col>
                                     </Row>
                                   </Row>

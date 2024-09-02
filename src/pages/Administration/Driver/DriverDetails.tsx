@@ -76,7 +76,7 @@ const DriverDetails = () => {
                     style={{ width: "400px" }}
                   >
                     <img
-                      src={`${process.env.REACT_APP_FILE_URL}/driverAffiliateFiles/profileImages/${driverLocation.state.profile_image}`}
+                      src={`${process.env.REACT_APP_BASE_URL}/driverAffiliateFiles/profileImages/${driverLocation.state.profile_image}`}
                       alt=""
                       className="rounded cover"
                     />

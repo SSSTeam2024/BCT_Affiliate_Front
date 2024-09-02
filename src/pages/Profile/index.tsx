@@ -63,9 +63,9 @@ const Profile = () => {
                     <Card.Body>
                       <div className="mt-n5">
                         <Image
-                          src={`${
-                            process.env.REACT_APP_FILE_URL
-                          }/affiliateFiles/avatarFilesPath/${user?.avatar!}`}
+                          src={`
+                            http://57.128.184.217:3000
+                          /affiliateFiles/avatarFilesPath/${user?.avatar!}`}
                           alt=""
                           className="avatar-lg rounded-circle p-1 bg-body mt-n3"
                         />

@@ -52,7 +52,7 @@ const ProfileDropdown = () => {
         </Dropdown.Toggle>
         <Dropdown.Menu className="dropdown-menu-end">
           <h6 className="dropdown-header">Welcome {user.name}!</h6>
-          <Dropdown.Item href="/user-profile">
+          <Dropdown.Item href="/profile">
             <i className="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i>{" "}
             <span className="align-middle">Profile</span>
           </Dropdown.Item>

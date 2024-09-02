@@ -15,27 +15,13 @@ import UserProfile from "pages/Authentication/user-profile";
 //? Notes
 import Notes from "pages/Notes";
 
-import ReportingManagement from "../pages/Tools/ReportingManagement/index";
-
 import PayementManagement from "../pages/Tools/PayementManagment/index";
-import Programming from "../pages/Promgramming/Scheduling/index";
-import OperationsManagement from "pages/OperationManagement/index";
-
-import TripsManagement from "pages/Promgramming/TripsManagement";
-import Offers from "pages/Tools/Offers/index";
-import Station from "pages/Promgramming/Stations/index";
 
 import ExtraTrip from "pages/ExtraTrip";
 import ListExtraTrip from "pages/ExtraTrip/ListExtraTrip";
-import AddNewStation from "pages/Promgramming/Stations/AddNewStation";
 
-import ProgramRoutes from "pages/ProgramRoutes";
 import Profile from "pages/Profile";
 
-import ProgramClone from "pages/ProgramRoutes/ProgramClone";
-import ProgramDetails from "pages/ProgramRoutes/ProgramDetails";
-import Program from "pages/Program";
-import AddProgramm from "pages/ProgramRoutes/AddProgramm";
 import Login from "pages/Authentication/Login";
 import RefusedJobs from "pages/RefusedJobs/index";
 import CompleteJobs from "pages/CompleteJobs";
@@ -50,44 +36,25 @@ import VehicleDetails from "pages/Administration/Vehicles/VehicleDetails";
 import AddNewVehicle from "pages/Administration/Vehicles/AddNewVehicle";
 import SuggestedJobs from "pages/SuggestedJobs";
 import EditProfile from "pages/Profile/EditProfile";
+import EditDriver from "pages/Administration/Driver/EditDriver";
+import EditVehicle from "pages/Administration/Vehicles/EditVehicle";
 
 const authProtectedRoutes = [
   { path: "/dashboard", component: <Dashboard /> },
 
-  // ? operations management
-
-  { path: "/operations-management", component: <OperationsManagement /> },
   // ? extra trips
   { path: "/add-extraTrip/extra-trips", component: <ExtraTrip /> },
   // ? extra trips
   { path: "/list-extra-trips", component: <ListExtraTrip /> },
 
-  //? Programming
-  { path: "/trips-management", component: <TripsManagement /> },
-  { path: "/scheduling", component: <Programming /> },
-  { path: "/offers", component: <Offers /> },
-  { path: "/stations", component: <Station /> },
-  // add station
-  { path: "/add-station/stations", component: <AddNewStation /> },
-
   // View Profile student
   { path: "/student/view-profile", component: <Profile /> },
-
-  //? Add station
-  { path: "/stations/add-station", component: <AddNewStation /> },
 
   //? Check Progress
   { path: "/check-progress", component: <CheckProgress /> },
 
-  //? Add programm
-  { path: "/programming/add-program", component: <AddProgramm /> },
-  // program routes
-  { path: "/programming/listofprogram", component: <ProgramRoutes /> },
-
   //? Payment Management
   { path: "/payement-management", component: <PayementManagement /> },
-  //? Reporting Management
-  { path: "/reporting-management", component: <ReportingManagement /> },
 
   { path: "/profile", component: <Profile /> },
   { path: "/edit_profile", component: <EditProfile /> },
@@ -100,17 +67,13 @@ const authProtectedRoutes = [
   //? Notes
   { path: "/notes", component: <Notes /> },
 
-  { path: "/list-of-program", component: <ProgramRoutes /> },
-  { path: "/program/:name", component: <ProgramClone /> },
-  { path: "/program-details/:name", component: <ProgramDetails /> },
-  { path: "/program", component: <Program /> },
   { path: "/drivers", component: <Driver /> },
   { path: "/driver-details/:fullName", component: <DriverDetails /> },
   { path: "/new-driver", component: <AddNewDriver /> },
-
+  { path: "/edit-driver", component: <EditDriver /> },
   { path: "/vehicles", component: <Vehicles /> },
   { path: "/vehicle-details/:name", component: <VehicleDetails /> },
-
+  { path: "/edit-vehicle/:name", component: <EditVehicle /> },
   //? Vehicles
   {
     path: "/new-vehicle",

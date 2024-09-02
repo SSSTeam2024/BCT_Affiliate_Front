@@ -150,7 +150,7 @@ const EditProfile = () => {
   }, [mergedVehicles]);
 
   const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: process?.env?.REACT_APP_MAPS_KEY!,
+    googleMapsApiKey: "AIzaSyBbORSZJBXcqDnY6BbMx_JSP0l_9HLQSkw",
     libraries: ["places"],
   });
 

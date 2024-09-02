@@ -81,7 +81,7 @@ const VehicleDetails = () => {
                 <Col lg={12} className="mt-4">
                   <div className="bg-white rounded-4 position-relative ribbon-box overflow-hidden">
                     <img
-                      src={`${process.env.REACT_APP_FILE_URL}/VehicleAffiliateFiles/vehicleImages/${LocationVehicle.state.vehicle_images}`}
+                      src={`${process.env.REACT_APP_BASE_URL}/VehicleAffiliateFiles/vehicleImages/${LocationVehicle.state.vehicle_images}`}
                       // src={productsImg31}
                       alt=""
                       className="img-fluid rounded-4"
@@ -263,35 +263,11 @@ const VehicleDetails = () => {
                         <td>{LocationVehicle.state.ownership}</td>
                       </tr>
                       <tr>
-                        <th>Owner Name</th>
-                        <td>{LocationVehicle.state.owner_name}</td>
+                        <th>Extra</th>
+                        <td>{LocationVehicle.state.extra}</td>
                       </tr>
                     </tbody>
                   </table>
-                </div>
-                <div className="d-flex flex-wrap gap-3 align-items-center mt-4">
-                  {LocationVehicle.state.extra.map((extrass: any) => (
-                    <button type="button" className="btn btn-success">
-                      {/* <i className="ri-wifi-line label-icon align-middle fs-16 me-2"></i>{" "} */}
-                      {extrass}
-                    </button>
-                  ))}
-                  {/* <button type="button" className="btn btn-success btn-label">
-                    <i className="ri-wifi-line label-icon align-middle fs-16 me-2"></i>{" "}
-                    Wifi
-                  </button>
-                  <button type="button" className="btn btn-danger btn-label">
-                    <i className="ri-fridge-line label-icon align-middle fs-16 me-2"></i>{" "}
-                    Fridge
-                  </button>
-                  <button type="button" className="btn btn-success btn-label">
-                    <i className="ri-tv-2-line label-icon align-middle fs-16 me-2"></i>{" "}
-                    Smart Screen
-                  </button>
-                  <button type="button" className="btn btn-success btn-label">
-                    <i className="ph ph-wind label-icon align-middle fs-16 me-2"></i>{" "}
-                    A.C
-                  </button> */}
                 </div>
                 <div>
                   <div className="d-flex flex-wrap gap-4 justify-content-between align-items-center mt-4">
@@ -343,7 +319,7 @@ const VehicleDetails = () => {
             ></div>
             <div>
               <Document
-                file={`${process.env.REACT_APP_FILE_URL}/VehicleAffiliateFiles/insuranceFiles/${LocationVehicle.state.insurance_file}`}
+                file={`${process.env.REACT_APP_BASE_URL}/VehicleAffiliateFiles/insuranceFiles/${LocationVehicle.state.insurance_file}`}
                 onLoadSuccess={onDocumentLoadSuccess}
               >
                 <Page pageNumber={1} />
@@ -372,7 +348,7 @@ const VehicleDetails = () => {
             ></div>
             <div>
               <Document
-                file={`${process.env.REACT_APP_FILE_URL}/VehicleAffiliateFiles/motFiles/${LocationVehicle.state.mot_file}`}
+                file={`${process.env.REACT_APP_BASE_URL}/VehicleAffiliateFiles/motFiles/${LocationVehicle.state.mot_file}`}
                 onLoadSuccess={onDocumentLoadSuccess}
               >
                 <Page pageNumber={1} />
@@ -401,7 +377,7 @@ const VehicleDetails = () => {
             ></div>
             <div>
               <Document
-                file={`${process.env.REACT_APP_FILE_URL}/VehicleAffiliateFiles/taxFiles/${LocationVehicle.state.tax_file}`}
+                file={`${process.env.REACT_APP_BASE_URL}/VehicleAffiliateFiles/taxFiles/${LocationVehicle.state.tax_file}`}
                 onLoadSuccess={onDocumentLoadSuccess}
               >
                 <Page pageNumber={1} />

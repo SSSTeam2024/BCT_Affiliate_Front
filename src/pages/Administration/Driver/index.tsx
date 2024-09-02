@@ -8,14 +8,14 @@ import { useSelector } from "react-redux";
 import { RootState } from "app/store"; // Import your RootState interface
 
 const Driver = () => {
-  document.title = "Driver | Bouden Coach Travel";
+  document.title = "Drivers | Bouden Coach Travel";
   const user = useSelector((state: RootState) => selectCurrentUser(state));
   const { data = [] } = useGetAllDriverQuery(user?._id!);
   return (
     <React.Fragment>
       <div className="page-content">
         <Container fluid={true}>
-          <Breadcrumb title="Driver" pageTitle="Contacts" />
+          <Breadcrumb title="Drivers" pageTitle="Administration" />
           <Row>
             <DriverTable driver={data} />
           </Row>

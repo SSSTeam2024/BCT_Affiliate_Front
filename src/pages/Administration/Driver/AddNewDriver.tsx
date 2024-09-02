@@ -368,7 +368,7 @@ const AddNewDriver = () => {
                         <Row>
                           <div className="text-center mb-3">
                             <div className="position-relative d-inline-block">
-                              <div className="position-absolute top-50 start-50 translate-middle">
+                              <div className="position-absolute top-100 start-100 translate-middle">
                                 <label
                                   htmlFor="profile_image_base64_string"
                                   className="mb-0"
@@ -384,13 +384,12 @@ const AddNewDriver = () => {
                                   </span>
                                 </label>
                                 <input
-                                  className="form-control d-none"
+                                  className="form-control d-none "
                                   type="file"
                                   name="profile_image_base64_string"
                                   id="profile_image_base64_string"
                                   accept="image/*"
                                   onChange={(e) => handleFileUpload(e)}
-                                  style={{ width: "210px", height: "120px" }}
                                 />
                               </div>
                               <div className="avatar-lg">
@@ -399,12 +398,8 @@ const AddNewDriver = () => {
                                     src={`data:image/jpeg;base64, ${driver.profile_image_base64_string}`}
                                     alt={driver.username}
                                     id="profile_image_base64_string"
-                                    className="avatar-xl h-auto rounded-3 object-fit-cover"
-                                    style={{
-                                      width: "210px",
-                                      height: "120px",
-                                      zIndex: 5000,
-                                    }}
+                                    className="rounded"
+                                    width="160"
                                   />
                                 </div>
                               </div>

@@ -25,7 +25,7 @@ export interface Vehicle {
   ownership: string;
   owner_name: string;
   note: string;
-  extra: string[];
+  extra: string;
   vehicle_images_base64_string: string;
   vehicle_images_extension: string;
   vehicle_images: string;
@@ -93,6 +93,14 @@ export const vehicleSlice = createApi({
         }),
         invalidatesTags: ["Vehicle"],
       }),
+      updateVehicle: builder.mutation<void, Vehicle>({
+        query: ({ _id, ...rest }) => ({
+          url: `/updateAffiliateVehicle/${_id}`,
+          method: "PATCH",
+          body: rest,
+        }),
+        invalidatesTags: ["Vehicle"],
+      }),
     };
   },
 });
@@ -102,4 +110,5 @@ export const {
   useGetAllVehiclesQuery,
   useDeleteVehicleMutation,
   useGetVehicleByIDQuery,
+  useUpdateVehicleMutation
 } = vehicleSlice;

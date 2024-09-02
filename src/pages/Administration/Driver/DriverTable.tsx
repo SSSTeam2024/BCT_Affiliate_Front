@@ -119,96 +119,99 @@ const DriverTable = ({ driver }: any) => {
         </Col>
       </Row>
       <Row
-        className="d-flex justify-content-center row-cols-xxl-5 row-cols-lg-4 row-cols-sm-2 row-cols-1 gap-5"
+        className="d-flex justify-content-center"
         id="brand-list"
         ref={teamList}
       >
         {(paginatedData || []).map((item: Driver, key: number) => (
-          <Card className="card brand-widget card-animate p-2" key={key}>
-            <Link
-              className="page-link"
-              to={`/driver-details/${item.firstname}`}
-              state={item}
-            >
-              <Card.Body>
-                <div className="d-flex mb-4 align-items-center">
-                  <div className="flex-shrink-0">
-                    <Image
-                      src={`${process.env.REACT_APP_FILE_URL}/driverAffiliateFiles/profileImages/${item.profile_image}`}
-                      alt={item.firstname}
-                      className="avatar-lg rounded-circle"
-                      id="profile_image"
-                    />
-                  </div>
-                  <div className="flex-grow-1 ms-2">
-                    <h4 className="card-title mb-1">
-                      {item.firstname} {item.surname}
-                    </h4>
-                    <span>
-                      <i className="mdi mdi-phone align-middle"></i>
-                      {item.phonenumber}
-                    </span>
-                  </div>
-                  {item.driverStatus === "Active" ? (
-                    <p className="badge bg-success">Active</p>
-                  ) : item.driverStatus === "Inactive" ? (
-                    <p className="badge bg-danger">Inactive</p>
-                  ) : item.driverStatus === "onRoad" ? (
-                    <p className="badge bg-info">On Road</p>
-                  ) : (
-                    <p className="badge bg-warning">On Vacation</p>
-                  )}
-                </div>
-                <div className="mb-3">
-                  <span>
-                    <i className="mdi mdi-email align-middle"></i> {item.email}
-                  </span>
-                </div>
-                <div>
-                  <p>
-                    <b>Driving Licence: </b>
-                    <span className="fw-meduim">
-                      {item.driving_license_expiry}
-                    </span>
-                  </p>
-                </div>
-                <div className="mt-0">
-                  <p>
-                    <b>DQC:</b> {item.dqc_expiry}
-                  </p>
-                </div>
-              </Card.Body>
-            </Link>
-            <Card.Footer className="p-2">
-              <div
-                className="btn-group btn-group-lg d-flex justify-content-center"
-                role="group"
-                aria-label="Basic example"
+          <Col lg={4}>
+            <Card className="card brand-widget card-animate" key={key}>
+              <Link
+                className="page-link"
+                to={`/driver-details/${item.firstname}`}
+                state={item}
               >
-                {" "}
-                <Link to={`/driver-details/${item.firstname}`} state={item}>
-                  <button type="button" className="btn btn-outline-info">
-                    <i className="ri-eye-line ri-xl"></i>
-                  </button>
-                </Link>
-                <Link to="#">
-                  <button type="button" className="btn btn-outline-secondary">
-                    <i className="ri-edit-2-line ri-xl"></i>
-                  </button>
-                </Link>
-                <Link to="#">
-                  <button type="button" className="btn btn-outline-dark">
-                    <i className="ri-settings-5-line ri-xl"></i>
-                  </button>
-                </Link>
-                <Link to="#" onClick={() => AlertDelete(item?._id!)}>
-                  <button type="button" className="btn btn-outline-danger">
-                    <i className="ri-delete-bin-5-line ri-xl" />
-                  </button>
-                </Link>
-              </div>
-            </Card.Footer>
-          </Card>
+                <Card.Body>
+                  <div className="d-flex mb-4 align-items-center">
+                    <div className="flex-shrink-0">
+                      <Image
+                        src={`${process.env.REACT_APP_BASE_URL}/driverAffiliateFiles/profileImages/${item.profile_image}`}
+                        alt={item.firstname}
+                        className="avatar-lg rounded-circle"
+                        id="profile_image"
+                      />
+                    </div>
+                    <div className="flex-grow-1 ms-2">
+                      <h4 className="card-title mb-1">
+                        {item.firstname} {item.surname}
+                      </h4>
+                      <span>
+                        <i className="mdi mdi-phone align-middle"></i>
+                        {item.phonenumber}
+                      </span>
+                    </div>
+                    {item.driverStatus === "Active" ? (
+                      <p className="badge bg-success">Active</p>
+                    ) : item.driverStatus === "Inactive" ? (
+                      <p className="badge bg-danger">Inactive</p>
+                    ) : item.driverStatus === "onRoad" ? (
+                      <p className="badge bg-info">On Road</p>
+                    ) : (
+                      <p className="badge bg-warning">On Vacation</p>
+                    )}
+                  </div>
+                  <div className="mb-3">
+                    <span>
+                      <i className="mdi mdi-email align-middle"></i>{" "}
+                      {item.email}
+                    </span>
+                  </div>
+                  <div>
+                    <p>
+                      <b>Driving Licence: </b>
+                      <span className="fw-meduim">
+                        {item.driving_license_expiry}
+                      </span>
+                    </p>
+                  </div>
+                  <div className="mt-0">
+                    <p>
+                      <b>DQC:</b> {item.dqc_expiry}
+                    </p>
+                  </div>
+                </Card.Body>
+              </Link>
+              <Card.Footer className="p-2">
+                <div
+                  className="btn-group btn-group-lg d-flex justify-content-center gap-2"
+                  role="group"
+                  aria-label="Basic example"
+                >
+                  {" "}
+                  <Link to={`/driver-details/${item.firstname}`} state={item}>
+                    <button type="button" className="btn btn-outline-info">
+                      <i className="ri-eye-line ri-xl"></i>
+                    </button>
+                  </Link>
+                  <Link to="/edit-driver" state={item}>
+                    <button type="button" className="btn btn-outline-secondary">
+                      <i className="ri-edit-2-line ri-xl"></i>
+                    </button>
+                  </Link>
+                  {/* <Link to="#">
+                    <button type="button" className="btn btn-outline-dark">
+                      <i className="ri-settings-5-line ri-xl"></i>
+                    </button>
+                  </Link> */}
+                  <Link to="#" onClick={() => AlertDelete(item?._id!)}>
+                    <button type="button" className="btn btn-outline-danger">
+                      <i className="ri-delete-bin-5-line ri-xl" />
+                    </button>
+                  </Link>
+                </div>
+              </Card.Footer>
+            </Card>
+          </Col>
         ))}
       </Row>
       <div
