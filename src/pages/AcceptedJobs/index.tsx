@@ -870,7 +870,7 @@ const AcceptedJobs = () => {
               </Modal.Header>
               <Modal.Body className="p-4">
                 <Card>
-                  <Card.Header>
+                  {/* <Card.Header>
                     <div className="d-flex align-items-center p-1">
                       <div className="flex-shrink-0 me-3">
                         <div className="avatar-sm">
@@ -888,7 +888,7 @@ const AcceptedJobs = () => {
                     ) : (
                       <DataTable columns={columns1} data={journeyTwo} />
                     )}
-                  </Card.Header>
+                  </Card.Header> */}
                   <Card.Header>
                     <div className="d-flex align-items-center p-1">
                       <div className="flex-shrink-0 me-3">
@@ -927,7 +927,7 @@ const AcceptedJobs = () => {
                             </select>
                           </div>
                         </Col>
-                        {selectVehicle && (
+                        {/* {selectVehicle && (
                           <Row className="mb-2">
                             <Col lg={6}>
                               <div>
@@ -987,7 +987,7 @@ const AcceptedJobs = () => {
                               </div>
                             </Col>
                           </Row>
-                        )}
+                        )} */}
                         <Col lg={12}>
                           <div className="hstack gap-2 justify-content-end">
                             <Button

@@ -181,7 +181,7 @@ const ModalAssignVehicle: React.FC<VehicleProps> = ({
         </h5>
       </Modal.Header>
       <Card>
-        <Card.Header>
+        {/* <Card.Header>
           <div className="d-flex align-items-center p-1">
             <div className="flex-shrink-0 me-3">
               <div className="avatar-sm">
@@ -199,7 +199,7 @@ const ModalAssignVehicle: React.FC<VehicleProps> = ({
           ) : (
             <DataTable columns={columns} data={journeyTwo} />
           )}
-        </Card.Header>
+        </Card.Header> */}
         <Card.Header>
           <div className="d-flex align-items-center p-1">
             <div className="flex-shrink-0 me-3">
@@ -235,7 +235,7 @@ const ModalAssignVehicle: React.FC<VehicleProps> = ({
                   </select>
                 </div>
               </Col>
-              {selectVehicle && (
+              {/* {selectVehicle && (
                 <>
                   <Row className="mb-2">
                     <Col lg={6}>
@@ -295,7 +295,7 @@ const ModalAssignVehicle: React.FC<VehicleProps> = ({
                     </Col>
                   </Row>
                 </>
-              )}
+              )} */}
               <Col lg={12}>
                 <div className="hstack gap-2 justify-content-end">
                   <Button
