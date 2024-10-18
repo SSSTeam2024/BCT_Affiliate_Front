@@ -37,7 +37,7 @@ interface Stop {
 }
 
 const EditProfile = () => {
-  document.title = "Edit Profile| Bouden Coach Travel";
+  document.title = "Edit Profile| Coach Hire Network";
 
   const user = useSelector((state: RootState) => selectCurrentUser(state));
 

@@ -45,7 +45,6 @@ const SignIn = () => {
   // const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-
   // const handleChange = ({
   //   target: { name, value },
   // }: React.ChangeEvent<HTMLInputElement>) =>
@@ -68,8 +67,7 @@ const SignIn = () => {
 
   const [passwordShow, setPasswordShow] = useState<any>(false);
 
-  const msgError: string =
-    "Sorry, you are not authorized to access this page!";
+  const msgError: string = "Sorry, you are not authorized to access this page!";
 
   const notify = (fullname: string) => {
     Swal.fire({
@@ -92,35 +90,35 @@ const SignIn = () => {
     navigate("/login");
   };
 
-//   const validation: any = useFormik({
-//     enableReinitialize: true,
-//     initialValues: {
-//       email: "",
-//       password: "",
-//     },
-//     validationSchema: Yup.object({
-//       email: Yup.string().required("Please Enter Your Username"),
-//       password: Yup.string().required("Please Enter Your Password"),
-//     }),
-//     onSubmit: async (values) => {
-//       try {
-//         const response = await login({
-//           login: values.email,
-//           password: values.password,
-//         });
-//         if ("data" in response) {
-//           const { data } = response;
-//           setFormResponse(data);
-//           dispatch(setCredentials(data));
-//           navigate("/map-tracking"); // Redirect to desired route upon successful login
-//         } else {
-//           console.error("Login failed", response.error);
-//         }
-//       } catch (error) {
-//         console.error("Login failed", error);
-//       }
-//     },
-//   });
+  //   const validation: any = useFormik({
+  //     enableReinitialize: true,
+  //     initialValues: {
+  //       email: "",
+  //       password: "",
+  //     },
+  //     validationSchema: Yup.object({
+  //       email: Yup.string().required("Please Enter Your Username"),
+  //       password: Yup.string().required("Please Enter Your Password"),
+  //     }),
+  //     onSubmit: async (values) => {
+  //       try {
+  //         const response = await login({
+  //           login: values.email,
+  //           password: values.password,
+  //         });
+  //         if ("data" in response) {
+  //           const { data } = response;
+  //           setFormResponse(data);
+  //           dispatch(setCredentials(data));
+  //           navigate("/map-tracking"); // Redirect to desired route upon successful login
+  //         } else {
+  //           console.error("Login failed", response.error);
+  //         }
+  //       } catch (error) {
+  //         console.error("Login failed", error);
+  //       }
+  //     },
+  //   });
 
   return (
     <React.Fragment>
@@ -183,7 +181,7 @@ const SignIn = () => {
                     <Card.Body>
                       <p className="text-muted fs-15">Sign in to continue</p>
                       <div className="p-2">
-                        <Form >
+                        <Form>
                           <div className="mb-3">
                             <Form.Label htmlFor="username">Login</Form.Label>
                             <Form.Control
@@ -191,7 +189,6 @@ const SignIn = () => {
                               name="Login"
                               type="text"
                             />
-                            
                           </div>
 
                           <div className="mb-3">
@@ -212,7 +209,7 @@ const SignIn = () => {
                                 id="password-input"
                                 name="password"
                                 // onChange={handleChange}
-                            
+
                                 type={show ? "text" : "password"}
                               />
                               <Button
@@ -225,7 +222,6 @@ const SignIn = () => {
                                 <i className="ri-eye-fill align-middle"></i>
                               </Button>
                             </div>
-                           
                           </div>
 
                           <div className="form-check">
@@ -239,46 +235,44 @@ const SignIn = () => {
                             </Form.Label>
                           </div>
 
-                          <div className="mt-4">
-                          
-                          </div>
+                          <div className="mt-4"></div>
                           <div>
-                          <Button
-                           variant="dark"
-                           className="w-100"
-                            type="submit"
-                            // onClick={async () => {
-                            //   try {
-                            //     const user = await login(formState).unwrap();
-                            //     console.log("User:", user);
-                            //     if (
-                            //       user.message === "login successfully" &&
-                            //       user.results.role === 1
-                            //     ) 
-                            
-                            //     {
-                            //       dispatch(setCredentials(user));
-                            //       localStorage.setItem(
-                            //         "auth",
-                            //         JSON.stringify(user.token)
-                            //       );
-                            //       localStorage.setItem(
-                            //         "profile",
-                            //         JSON.stringify(user.results.fullname)
-                            //       );
-                            //       notify(user.results.fullname);
-                            //     } else {
-                            //       Errornotify(msgError);
-                            //     }
-                            //   } catch (err: any) {
-                            //     console.error("Error:", err);
-                            //     Errornotify(err);
-                            //   }
-                            // }}
-                          >
-                            Sign In
-                          </Button>
-                        </div>
+                            <Button
+                              variant="dark"
+                              className="w-100"
+                              type="submit"
+                              // onClick={async () => {
+                              //   try {
+                              //     const user = await login(formState).unwrap();
+                              //     console.log("User:", user);
+                              //     if (
+                              //       user.message === "login successfully" &&
+                              //       user.results.role === 1
+                              //     )
+
+                              //     {
+                              //       dispatch(setCredentials(user));
+                              //       localStorage.setItem(
+                              //         "auth",
+                              //         JSON.stringify(user.token)
+                              //       );
+                              //       localStorage.setItem(
+                              //         "profile",
+                              //         JSON.stringify(user.results.fullname)
+                              //       );
+                              //       notify(user.results.fullname);
+                              //     } else {
+                              //       Errornotify(msgError);
+                              //     }
+                              //   } catch (err: any) {
+                              //     console.error("Error:", err);
+                              //     Errornotify(err);
+                              //   }
+                              // }}
+                            >
+                              Sign In
+                            </Button>
+                          </div>
                         </Form>
                       </div>
                     </Card.Body>
@@ -294,7 +288,7 @@ const SignIn = () => {
                 <Col lg={12}>
                   <div className="text-center">
                     <p className="mb-0 text-muted">
-                      ©{new Date().getFullYear()} Bouden Coach Travel. Crafted
+                      ©{new Date().getFullYear()} Coach Hire Network. Crafted
                       with <i className="mdi mdi-heart text-danger"></i> by 3S
                     </p>
                   </div>

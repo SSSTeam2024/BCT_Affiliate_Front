@@ -22,7 +22,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "app/store"; // Import your RootState interface
 
 const AddNewDriver = () => {
-  document.title = "Create Driver | Bouden Coach Travel";
+  document.title = "Create Driver | Coach Hire Network";
   const user = useSelector((state: RootState) => selectCurrentUser(state));
   const navigate = useNavigate();
   const notifySuccess = () => {

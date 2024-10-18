@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "app/store"; // Import your RootState interface
 
 const Driver = () => {
-  document.title = "Drivers | Bouden Coach Travel";
+  document.title = "Drivers | Coach Hire Network";
   const user = useSelector((state: RootState) => selectCurrentUser(state));
   const { data = [] } = useGetAllDriverQuery(user?._id!);
   return (

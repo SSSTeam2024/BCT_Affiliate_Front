@@ -21,7 +21,7 @@ import { pdfjs } from "react-pdf";
 import "@react-pdf-viewer/core/lib/styles/index.css";
 
 const Profile = () => {
-  document.title = "Profile| Bouden Coach Travel";
+  document.title = "Profile| Coach Hire Network";
   const user = useSelector((state: RootState) => selectCurrentUser(state));
 
   const [modal_PVCModals, setmodal_PVCModals] = useState<boolean>(false);

@@ -1,18 +1,7 @@
-import React, { useEffect, useState } from "react";
-import {
-  Alert,
-  Button,
-  Card,
-  Col,
-  Container,
-  Form,
-  Row,
-  Spinner,
-} from "react-bootstrap";
+import React, { useEffect } from "react";
+import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 
 // Import Images
-import logoDark from "assets/images/logo-dark.png";
-import logoLight from "assets/images/logo-light.png";
 import logo from "assets/images/logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -40,9 +29,7 @@ const Login = (props: any) => {
   });
 
   useEffect(() => {
-    console.log("hey token");
     if (localStorage.getItem("authAffiliate")) {
-      console.log("hey token2");
       navigate("/dashboard");
     }
   }, [localStorage.getItem("authAffiliate")]);
@@ -132,21 +119,26 @@ const Login = (props: any) => {
               <Col lg={6}>
                 <div className="auth-card mx-lg-3">
                   <Card className="border-0 mb-0">
-                    <Card.Header className="bg-primary border-0">
+                    <Card.Header className="bg-light-subtle border-0">
                       <Row>
-                        <Col lg={4} className="col-3">
-                          <img src={logo} alt="" className="img-fluid" />
+                        <Col
+                          lg={12}
+                          className="d-flex justify-content-start col-12"
+                        >
+                          <img
+                            src={logo}
+                            alt=""
+                            className="img-fluid"
+                            width="240"
+                          />
                         </Col>
-                        {/* <Col lg={8} className="col-9">
-                          <h1 className="text-white lh-base fw-lighter">
-                            Join Our Toner Store
-                          </h1>
-                        </Col> */}
                       </Row>
                     </Card.Header>
                     <Card.Body>
                       <p className="text-muted fs-15">
-                        Sign in to continue to Affiliate Dashboard.
+                        Sign in to continue to{" "}
+                        <span className="text-danger">Affiliate</span>{" "}
+                        Dashboard.
                       </p>
                       <div className="p-2">
                         <div className="mb-3">
@@ -225,8 +217,7 @@ const Login = (props: any) => {
 
                         <div>
                           <Button
-                            variant="primary"
-                            className="w-100"
+                            className="w-100 btn-darken-danger"
                             type="submit"
                             onClick={async () => {
                               try {
@@ -271,7 +262,7 @@ const Login = (props: any) => {
                 <Col lg={12}>
                   <div className="text-center">
                     <p className="mb-0 text-muted">
-                      ©{new Date().getFullYear()} Bouden Coach Travel. Crafted
+                      ©{new Date().getFullYear()} Coach Hire Network. Crafted
                       with <i className="mdi mdi-heart text-danger"></i> by Team
                       3S
                     </p>
